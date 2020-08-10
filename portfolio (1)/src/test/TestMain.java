@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 import basic.BMI;
-import basic.BMI2;
 import basic.Person;
 import basic.RecommendCal;
 import exercisecollection.running;
@@ -27,7 +26,7 @@ public class TestMain {
 		Food[] afternoonFoods = new Food[4];
 		Food[] nightFoods = new Food[4];
 		
-		//외부 함수 호출 선언
+		//외부 호출 선언
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월 dd일");
 		Date date = new Date();
 		String time = format.format(date);
@@ -53,11 +52,6 @@ public class TestMain {
 		
 		Person person1 = new Person("김자바", 175, 80);
 		Person person2 = new Person("이클립스", 185, 70);
-		
-		private void mem() {
-			personList.add(person1);
-			personList.add(person2);
-		}
 
 		
 		//기본자 입력
@@ -75,9 +69,12 @@ public class TestMain {
 	//start
 	public void start() {
 		
-	System.out.println("◈ 방문을 환영합니다 ◈");
-	System.out.println("1. 비회원 로그인");
-	System.out.println("2. 기존 회원 로그인");
+	System.out.println("◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈");
+	System.out.println("◈ 	방문을 환영합니다! 	  ◈");
+	System.out.println("◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈");
+	System.out.println("▶  로그인 방식을 선택해주세요.");
+	System.out.println("☞ 1. 비회원 로그인");
+	System.out.println("☞ 2. 기존 회원 로그인");
 
 	startChoice = scan.nextInt();
 	switch(startChoice) {
@@ -95,18 +92,21 @@ public class TestMain {
 	}
 	
 	private void notExistingMem() {
-		scan.nextLine();
-		String name = getStrInput("이름 : ");
-		double height = getDouInput("키 : ");
-		double weight = getDouInput("몸무게 : ");
 		
+		System.out.println("☞ 비회원 로그인을 진행합니다.");
+		System.out.println("이용에 필요한 정보를 입력해주세요.");
+		scan.nextLine();
+		String name = getStrInput("▶ 이름 : ");
+		double height = getDouInput("▶ 키 : ");
+		double weight = getDouInput("▶ 몸무게 : ");
+
 		if(name.equals(name)) {
-			System.out.println(name+"님의 정보를 입력받았습니다☺!");
+			System.out.println("☞ "+name+"님의 정보를 입력받았습니다☺!");
 			System.out.println("현재 "+name+"님의 상태를 알려드립니다.");
 			myBMI.BMI2(name, height, weight);
 			System.out.println();
 			System.out.println(name+"님의 권장 칼로리는 "+myRecommendCal.RecommendCal2(height, weight)+"kcal입니다.");
-			System.out.println("오늘 칼로리 소모량을 체크하고 싶으시다면,아무 버튼이나 눌러주세요.");
+			System.out.println("계속 진행하시고 싶으시다면, 아무 버튼이나 눌러주세요.");
 			scan.nextLine();
 			scan.nextLine();
 			selectFood();
@@ -116,13 +116,36 @@ public class TestMain {
 
 
 	private double getDouInput(String string) {
-		System.out.println(string);
+		try {
+			System.out.println(string);				
+			return scan.nextDouble();
+		} catch (Exception e) {
+			System.out.println("올바른 숫자를 입력해주세요.");
+			System.out.println("아무 버튼이나 누르면, 다시 초기화면으로 돌아갑니다.");
+			scan.nextLine();
+			scan.nextLine();
+			notExistingMem();
+		}
+		System.out.println(string);				
 		return scan.nextDouble();
+
 	}
 
 	private String getStrInput(String string) {
-		System.out.println(string);
+		
+		try {
+			System.out.println(string);				
+			return scan.nextLine();
+		} catch (Exception e) {
+			System.out.println("올바른 숫자를 입력해주세요.");
+			System.out.println("아무 버튼이나 누르면, 다시 초기화면으로 돌아갑니다.");
+			scan.nextLine();
+			scan.nextLine();
+			notExistingMem();
+		}
+		System.out.println(string);			
 		return scan.nextLine();
+
 	}
 
 	private void existingMem() {
@@ -136,7 +159,7 @@ public class TestMain {
 	switch (id) {
 	case 1:
 		person = person1;
-		System.out.println(person.getName()+"님 어서오세요☺!");
+		System.out.println("☞ "+person.getName()+"님 어서오세요☺!");
 		System.out.println("현재 "+person.getName()+"님의 상태를 알려드립니다.");
 		myBMI.BMI(person);
 		System.out.println();
@@ -149,7 +172,7 @@ public class TestMain {
 		
 	case 2:
 		person = person2;
-		System.out.println(person.getName()+"님 어서오세요☺!");
+		System.out.println("☞ "+person.getName()+"님 어서오세요☺!");
 		System.out.println("현재 "+person.getName()+"님의 상태를 알려드립니다.");
 		myBMI.BMI(person);
 		System.out.println();
@@ -167,12 +190,14 @@ public class TestMain {
 	//음식 선택
 	public void selectFood() {
 		System.out.println( "▶ " +time+".오늘의 식사 정보 입력을 시작합니다.");
-		System.out.println("식사하신 시간대를 선택해주세요.");
-		System.out.println("1. 아침");
-		System.out.println("2. 점심");
-		System.out.println("3. 저녁");
-		System.out.println("0. 식사 입력 완료");
-		System.out.println("→ 입력할 식사를 선택해주세요.");
+		System.out.println("오늘 식사하신 시간대를 선택해주세요.");
+		System.out.println("┏━━━━━━━━━━━━━┓");
+		System.out.println("┃1. 아침                ┃");
+		System.out.println("┃2. 점심                ┃");
+		System.out.println("┃3. 저녁                ┃");
+		System.out.println("┃0. 식사 입력 완료  ┃");
+		System.out.println("┗━━━━━━━━━━━━━┛");
+		System.out.println("→ 입력할 버튼을 눌러주세요.");
 		
 		foodChoice = scan.nextInt();
 		printFoodList();
@@ -218,18 +243,18 @@ public class TestMain {
 				break;
 			default:
 				System.out.println("올바른 번호를 입력해주세요.");
-				System.exit(0); 
+				printFoodList();
 				break;
 		}
 	}
 
 	public void foodSelect(Food[] Foods) {
-		System.out.println("******************");
+		System.out.println("**************************");
 		for (int i = 0; i < Foods.length; i++) {
 			System.out.printf((i+1)+". %s, %.2fkcal\n", 
 					Foods[i].getFoodName(), Foods[i].getFoodCal());
 		}
-		System.out.println("******************");
+		System.out.println("**************************");
 		
 		System.out.println("[0] : 식단을 계산합니다.");
 		System.out.printf("선택 -> ");
@@ -260,7 +285,7 @@ public class TestMain {
 			cart.add(food);
 			totalFood += food.getFoodCal();
 						
-			System.out.printf("%s(%.2fkcal)을 선택하셨습니다. 현재 총 소모 칼로리는 %.2fkcal입니다.\n", food.getFoodName(), food.getFoodCal(), totalFood);
+			System.out.printf("%s(%.2fkcal)을 선택하셨습니다.\n현재 총 소모 칼로리는 %.2fkcal입니다.\n", food.getFoodName(), food.getFoodCal(), totalFood);
 			System.out.println("아무 문자나 입력하시면 카테고리 목록이 출력됩니다.");
 		} else {
 			
@@ -276,8 +301,8 @@ public class TestMain {
 }
 	
 	 public void printFood() {
-		 System.out.println("**************");
-		 System.out.println("===식단 목록====");
+		 System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		 System.out.println("==== 식단 목록 ====");
 		 System.out.println(" 식사 이름\t   ▏  식사 칼로리");
 		 
 		 for (int i = 0; i < cart.size(); i++) {		
@@ -295,18 +320,20 @@ public class TestMain {
 	private void calFinish() throws IOException {
 		// 식사 칼로리 계산 뒤 출력할 함수
 		printFood();
-		System.out.println("-------");
-		System.out.println("오늘의 운동을 체크합니다.");
+		System.out.println("*************************");
+		System.out.println("▶ 오늘의 운동 정보 입력을 시작합니다.");
 		selectExercise();
 	}
 
 	private void selectExercise() throws IOException {
 		
 		System.out.println("오늘 완료한 운동을 선택해주세요.");
-		System.out.println("1. 걷기");
-		System.out.println("2. 달리기");
-		System.out.println("3. 수영");
-		System.out.println("0. 운동 입력 완료");
+		System.out.println("┏━━━━━━━━━━━━━┓");
+		System.out.println("┃1. 걷기                 ┃");
+		System.out.println("┃2. 달리기              ┃");
+		System.out.println("┃3. 수영                 ┃");
+		System.out.println("┃0. 운동 입력 완료   ┃");
+		System.out.println("┗━━━━━━━━━━━━━┛");
 		System.out.println("-> 입력할 운동을 선택해주세요.");
 		exerciseChoice = scan.nextInt();
 		printExerciseList();
@@ -346,8 +373,8 @@ public class TestMain {
 	
 	
 	private void printExercise() throws IOException {
-		System.out.println("1번을 누르면 운동 선택으로.");
-		System.out.println("2번을 누르면 운동 계산으로 출력됩니다.");
+		System.out.println("☞ 1번을 누르면 운동 선택으로 돌아갑니다.");
+		System.out.println("☞ 2번을 누르면 최종 운동 칼로리 계산으로 이동합니다.");
 
 		int snum = 0;
 		try {
@@ -371,9 +398,11 @@ public class TestMain {
 
 	private void exerciseFinish() {
 		totalExercise = walking.getResult()+running.getResult()+swimming.getResult();
-		System.out.println("오늘 총 운동 소모 칼로리는 "+totalExercise+"kcal입니다.");
-		System.out.printf("오늘 총 식사 칼로리는 %.2fkcal입니다.\n", totalFood);
-		System.out.printf("오늘 총 소모 칼로리는  %.2fkcal입니다.", totalFood-totalExercise);
+		System.out.println("☞ 오늘 총 운동 소모 칼로리는 "+totalExercise+"kcal입니다.");
+		System.out.printf("☞ 오늘 총 식사 칼로리는 %.2fkcal입니다.\n", totalFood);
+		System.out.printf("☞ 오늘 총 소모 칼로리는  %.2fkcal입니다.\n", totalFood-totalExercise);
+		System.out.println("☺ 오늘 하루도 고생 많으셨습니다 ☺ ");
+		System.out.println("☺ 내일도 파이팅 ☺! ");
 
 	}
 	
