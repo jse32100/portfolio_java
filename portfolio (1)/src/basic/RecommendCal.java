@@ -15,5 +15,11 @@ public class RecommendCal {
 public String toString() {
 	return "RecommendCal [toString()=" + super.toString() + "]";
 }
+
+public int RecommendCal2(double height, double weight) {
+	int result;
+	result = (int)((height-100)*0.9*25);
+	return result;
+}
 }
 
