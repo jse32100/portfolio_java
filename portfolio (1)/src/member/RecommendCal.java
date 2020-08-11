@@ -1,4 +1,4 @@
-package basic;
+package member;
 
 public class RecommendCal {
 	static Person person;

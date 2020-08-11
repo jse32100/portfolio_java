@@ -6,36 +6,37 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import basic.BMI;
-import basic.Person;
-import basic.RecommendCal;
-import exercisecollection.running;
-import exercisecollection.swimming;
-import exercisecollection.walking;
-import foodcollection.AfternoonFood;
-import foodcollection.Food;
-import foodcollection.MorningFood;
-import foodcollection.NightFood;
+import exercise.running;
+import exercise.swimming;
+import exercise.walking;
+import food.MidcalFood;
+import food.Food;
+import food.HighcalFood;
+import food.LowcalFood;
+import member.BMI;
+import member.Person;
+import member.RecommendCal;
 
 public class TestMain {
 	
 		//스캐너
 		Scanner scan = new Scanner(System.in);
 		
-		Food[] morningFoods = new Food[4];
-		Food[] afternoonFoods = new Food[4];
-		Food[] nightFoods = new Food[4];
+		Food[] highcalFoods = new Food[4];
+		Food[] midcalFoods = new Food[4];
+		Food[] lowcalFoods = new Food[4];
 		
-		//외부 호출 선언
+		//날짜 
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월 dd일");
 		Date date = new Date();
 		String time = format.format(date);
-		
+	
+		//외부 호출 선언
 		BMI myBMI = new BMI();
 		RecommendCal myRecommendCal = new RecommendCal();
 		Person person;
 		
-		//식사와 운동 담은 것
+		//시작/식사/운동 선택 버튼
 		int startChoice;
 		int foodChoice;
 		int exerciseChoice;
@@ -58,6 +59,7 @@ public class TestMain {
 		int id = 0;
 		int menu = 0;
 		
+		// 시작
 		public static void main(String[] args) {
 			
 		TestMain test = new TestMain();
@@ -66,11 +68,11 @@ public class TestMain {
 
 	}
 
-	//start
 	public void start() {
 		
 	System.out.println("◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈");
-	System.out.println("◈ 	방문을 환영합니다! 	  ◈");
+	System.out.println("◈          식사와 칼로리 계산 사이트의      ◈");
+	System.out.println("◈                   방문을 환영합니다!                 ◈");
 	System.out.println("◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈◈");
 	System.out.println("▶  로그인 방식을 선택해주세요.");
 	System.out.println("☞ 1. 비회원 로그인");
@@ -86,8 +88,10 @@ public class TestMain {
 			break;
 		default:
 			System.out.println("올바른 번호를 입력해주세요.");
-			System.exit(0); 
-			break;	
+			System.out.println("아무 버튼이나 누르면, 다시 초기화면으로 돌아갑니다.");
+			scan.nextLine();
+			scan.nextLine();
+			start();
 	}
 	}
 	
@@ -97,15 +101,16 @@ public class TestMain {
 		System.out.println("이용에 필요한 정보를 입력해주세요.");
 		scan.nextLine();
 		String name = getStrInput("▶ 이름 : ");
-		double height = getDouInput("▶ 키 : ");
-		double weight = getDouInput("▶ 몸무게 : ");
+		double height = getDouInput("▶ 키(cm) : ");
+		double weight = getDouInput("▶ 몸무게(kg) : ");
 
 		if(name.equals(name)) {
 			System.out.println("☞ "+name+"님의 정보를 입력받았습니다☺!");
 			System.out.println("현재 "+name+"님의 상태를 알려드립니다.");
+			System.out.println("─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ");
 			myBMI.BMI2(name, height, weight);
 			System.out.println();
-			System.out.println(name+"님의 권장 칼로리는 "+myRecommendCal.RecommendCal2(height, weight)+"kcal입니다.");
+			System.out.println(name+"님의 하루 권장 칼로리는 <"+myRecommendCal.RecommendCal2(height, weight)+"kcal>입니다.");
 			System.out.println("계속 진행하시고 싶으시다면, 아무 버튼이나 눌러주세요.");
 			scan.nextLine();
 			scan.nextLine();
@@ -121,7 +126,7 @@ public class TestMain {
 			return scan.nextDouble();
 		} catch (Exception e) {
 			System.out.println("올바른 숫자를 입력해주세요.");
-			System.out.println("아무 버튼이나 누르면, 다시 초기화면으로 돌아갑니다.");
+			System.out.println("엔터키를 누르면, 다시 초기화면으로 돌아갑니다.");
 			scan.nextLine();
 			scan.nextLine();
 			notExistingMem();
@@ -138,7 +143,7 @@ public class TestMain {
 			return scan.nextLine();
 		} catch (Exception e) {
 			System.out.println("올바른 숫자를 입력해주세요.");
-			System.out.println("아무 버튼이나 누르면, 다시 초기화면으로 돌아갑니다.");
+			System.out.println("엔터키를 누르면, 다시 초기화면으로 돌아갑니다.");
 			scan.nextLine();
 			scan.nextLine();
 			notExistingMem();
@@ -161,9 +166,9 @@ public class TestMain {
 		person = person1;
 		System.out.println("☞ "+person.getName()+"님 어서오세요☺!");
 		System.out.println("현재 "+person.getName()+"님의 상태를 알려드립니다.");
+		System.out.println("─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ");
 		myBMI.BMI(person);
-		System.out.println();
-		System.out.println(person.getName()+"님의 권장 칼로리는 "+myRecommendCal.RecommendCal(person)+"kcal입니다.");
+		System.out.println("\n"+person.getName()+"님의 하루 권장 칼로리는 <"+myRecommendCal.RecommendCal(person)+"kcal>입니다.");
 		System.out.println("오늘 칼로리 소모량을 체크하고 싶으시다면, 아무 버튼이나 눌러주세요.");
 		scan.nextLine();
 		scan.nextLine();
@@ -174,9 +179,9 @@ public class TestMain {
 		person = person2;
 		System.out.println("☞ "+person.getName()+"님 어서오세요☺!");
 		System.out.println("현재 "+person.getName()+"님의 상태를 알려드립니다.");
+		System.out.println("─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ─ ");
 		myBMI.BMI(person);
-		System.out.println();
-		System.out.println(person.getName()+"님의 권장 칼로리는 "+myRecommendCal.RecommendCal(person)+"kcal입니다.");
+		System.out.println("\n"+person.getName()+"님의 하루 권장 칼로리는 <"+myRecommendCal.RecommendCal(person)+"kcal>입니다.");
 		System.out.println("오늘 칼로리 소모량을 체크하고 싶으시다면, 아무 버튼이나 눌러주세요.");
 		scan.nextLine();
 		scan.nextLine();
@@ -184,19 +189,23 @@ public class TestMain {
 		break;
 	default :
 		System.out.println("잘못된 입력입니다.");
+		System.out.println("엔터키를 누르면, 다시 회원 선택으로 돌아갑니다.");
+		scan.nextLine();
+		scan.nextLine();
+		existingMem();
 	}	
 }
 
 	//음식 선택
 	public void selectFood() {
-		System.out.println( "▶ " +time+".오늘의 식사 정보 입력을 시작합니다.");
-		System.out.println("오늘 식사하신 시간대를 선택해주세요.");
-		System.out.println("┏━━━━━━━━━━━━━┓");
-		System.out.println("┃1. 아침                ┃");
-		System.out.println("┃2. 점심                ┃");
-		System.out.println("┃3. 저녁                ┃");
-		System.out.println("┃0. 식사 입력 완료  ┃");
-		System.out.println("┗━━━━━━━━━━━━━┛");
+		System.out.println( "▶ "+time+".\n오늘의 식사 정보 입력을 시작합니다.");
+		System.out.println("오늘 식사하신 메뉴를 선택해주세요.");
+		System.out.println("┏━━━━━━<식 사>━━━━━━━┓");
+		System.out.println("┃1. 고칼로리 식사               ┃");
+		System.out.println("┃2. 평균 칼로리 식사           ┃");
+		System.out.println("┃3. 저칼로리 식사               ┃");
+		System.out.println("┃0. 식사 입력 완료              ┃");
+		System.out.println("┗━━━━━━<Food>━━━━━━┛");
 		System.out.println("→ 입력할 버튼을 눌러주세요.");
 		
 		foodChoice = scan.nextInt();
@@ -207,20 +216,20 @@ public class TestMain {
 	// 식사 목록
 	 public void foodType() {
 
-			morningFoods[0] = new MorningFood("갈치구이 정식", 449.41);
-			morningFoods[1] = new MorningFood("김치찌개 정식", 546.65);
-			morningFoods[2] = new MorningFood("된장찌개 정식", 501.20);
-			morningFoods[3] = new MorningFood("공복", 0);
+			highcalFoods[0] = new HighcalFood("후라이드 치킨 반마리", 871.05);
+			highcalFoods[1] = new HighcalFood("빅맥 세트", 1155.20);
+			highcalFoods[2] = new HighcalFood("포테이토 피자 3조각", 603.45);
+			highcalFoods[3] = new HighcalFood("짬뽕 1그릇", 690.80);
 			
-			afternoonFoods[0] = new AfternoonFood("칼로리바", 165);
-			afternoonFoods[1] = new AfternoonFood("샌드위치", 321);
-			afternoonFoods[2] = new AfternoonFood("라면", 495);
-			afternoonFoods[3] = new AfternoonFood("공복", 0);
+			midcalFoods[0] = new MidcalFood("오리고기 볶음밥", 454.4);
+			midcalFoods[1] = new MidcalFood("서브웨이 터키 샌드위치", 310);
+			midcalFoods[2] = new MidcalFood("라면", 495);
+			midcalFoods[3] = new MidcalFood("된장찌개 정식", 480.10);
 			
-			nightFoods[0] = new NightFood("삶은 계란 2개", 310.2);
-			nightFoods[1] = new NightFood("비빔 국수", 489.3);
-			nightFoods[2] = new NightFood("오리고기 볶음밥", 454.4);
-			nightFoods[3] = new NightFood("공복", 0);
+			lowcalFoods[0] = new LowcalFood("삶은 계란 2개", 145.2);
+			lowcalFoods[1] = new LowcalFood("칼로리바", 165);
+			lowcalFoods[2] = new LowcalFood("바나나 2개", 210.0);
+			lowcalFoods[3] = new LowcalFood("공복", 0);
 		}
 	 
 	public void printFoodList() {
@@ -233,18 +242,21 @@ public class TestMain {
 			} 
 				break;
 			case 1:
-				foodSelect(morningFoods);
+				foodSelect(highcalFoods);
 				break;
 			case 2:
-				foodSelect(afternoonFoods);
+				foodSelect(midcalFoods);
 				break;
 			case 3:
-				foodSelect(nightFoods);
+				foodSelect(lowcalFoods);
 				break;
 			default:
 				System.out.println("올바른 번호를 입력해주세요.");
-				printFoodList();
-				break;
+				System.out.println("엔터키를 누르면, 다시 식사 선택으로 돌아갑니다.");
+				scan.nextLine();
+				scan.nextLine();
+				selectFood();
+				
 		}
 	}
 
@@ -272,8 +284,11 @@ public class TestMain {
 			putCart(Foods[foodChoice-1]);
 		} else {
 			
-			System.out.println("범위를 벗어났습니다. 프로그램을 종료합니다.");
-			System.exit(0);
+			System.out.println("올바른 번호를 입력해주세요.");
+			System.out.println("엔터키를 누르면, 다시 식사 선택으로 돌아갑니다.");
+			scan.nextLine();
+			scan.nextLine();
+			selectFood();
 		}
 	}
 	
@@ -288,7 +303,6 @@ public class TestMain {
 			System.out.printf("%s(%.2fkcal)을 선택하셨습니다.\n현재 총 소모 칼로리는 %.2fkcal입니다.\n", food.getFoodName(), food.getFoodCal(), totalFood);
 			System.out.println("아무 문자나 입력하시면 카테고리 목록이 출력됩니다.");
 		} else {
-			
 			System.out.println("=========================");
 			System.out.println("잘못 누르셨습니다.");
 		}
@@ -308,10 +322,10 @@ public class TestMain {
 		 for (int i = 0; i < cart.size(); i++) {		
 				System.out.printf(" %s ▏  %.2fkcal \n", cart.get(i).getFoodName(), cart.get(i).getFoodCal());
 			}
-		 System.out.printf("총 식사 칼로리는 %.2fkcal입니다.", totalFood);
-		 System.out.println();
+		 System.out.println("────────────────────────────");
+		 System.out.printf("☞ "+"총 식사 칼로리는 %.2fkcal입니다.\n", totalFood);
 		 System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-		 System.out.println("오늘 운동 소모량을 체크하고 싶으시다면, 아무 버튼이나 눌러주세요.");
+		 System.out.println("오늘 운동 소모량을 체크하고 싶으시다면, 엔터키를 눌러주세요.");
 			scan.nextLine();
 			scan.nextLine();
 
@@ -328,12 +342,12 @@ public class TestMain {
 	private void selectExercise() throws IOException {
 		
 		System.out.println("오늘 완료한 운동을 선택해주세요.");
-		System.out.println("┏━━━━━━━━━━━━━┓");
-		System.out.println("┃1. 걷기                 ┃");
-		System.out.println("┃2. 달리기              ┃");
-		System.out.println("┃3. 수영                 ┃");
-		System.out.println("┃0. 운동 입력 완료   ┃");
-		System.out.println("┗━━━━━━━━━━━━━┛");
+		System.out.println("┏━━━━━━<운 동>━━━━━━┓");
+		System.out.println("┃ 1. 걷기                       ┃");
+		System.out.println("┃ 2. 달리기                    ┃");
+		System.out.println("┃ 3. 수영                       ┃");
+		System.out.println("┃ 0. 운동 입력 완료         ┃");
+		System.out.println("┗━━━━<Exercise>━━━┛");
 		System.out.println("-> 입력할 운동을 선택해주세요.");
 		exerciseChoice = scan.nextInt();
 		printExerciseList();
@@ -362,7 +376,10 @@ public class TestMain {
 					break;
 				default:
 					System.out.println("올바른 번호를 입력해주세요.");
-					System.exit(0); 
+					System.out.println("엔터키를 누르면, 다시 운동 선택으로 돌아갑니다.");
+					scan.nextLine();
+					scan.nextLine();
+					selectExercise();
 					break;
 		}
 		
@@ -373,8 +390,8 @@ public class TestMain {
 	
 	
 	private void printExercise() throws IOException {
-		System.out.println("☞ 1번을 누르면 운동 선택으로 돌아갑니다.");
-		System.out.println("☞ 2번을 누르면 최종 운동 칼로리 계산으로 이동합니다.");
+		System.out.println("☞"+"[1]번을 누르면 운동 선택으로 돌아갑니다.");
+		System.out.println("☞"+"[2]번을 누르면 최종 운동 칼로리 계산으로 이동합니다.");
 
 		int snum = 0;
 		try {
@@ -402,7 +419,7 @@ public class TestMain {
 		System.out.printf("☞ 오늘 총 식사 칼로리는 %.2fkcal입니다.\n", totalFood);
 		System.out.printf("☞ 오늘 총 소모 칼로리는  %.2fkcal입니다.\n", totalFood-totalExercise);
 		System.out.println("☺ 오늘 하루도 고생 많으셨습니다 ☺ ");
-		System.out.println("☺ 내일도 파이팅 ☺! ");
+		System.out.println("☺ 내일도 파이팅! ☺ ");
 
 	}
 	

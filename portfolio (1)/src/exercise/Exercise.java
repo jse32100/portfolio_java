@@ -1,16 +1,16 @@
-package exercisecollection;
+package exercise;
 
 public class Exercise {
 	
-	public String exerciseName;
-	public double exerciseCal;
-	public static int exerciseTime;
+	private String exerciseName;
+	private double exerciseCal;
+	private static int exerciseTime;
 
-	public Exercise(String exerciseName, double exerciseCal) {
+	public Exercise(String exerciseName, double exerciseCal, int exerciseTime) {
 		super();
 		this.exerciseName = exerciseName;
 		this.exerciseCal = exerciseCal;
-		this.exerciseTime = exerciseTime;
+		Exercise.exerciseTime = exerciseTime;
 	}
 
 	public String getExerciseName() {
