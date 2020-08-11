@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
-import exercise.running;
-import exercise.swimming;
-import exercise.walking;
+import exercise.Running;
+import exercise.Swimming;
+import exercise.Walking;
 import food.MidcalFood;
 import food.Food;
 import food.HighcalFood;
@@ -22,9 +22,15 @@ public class TestMain {
 		//스캐너
 		Scanner scan = new Scanner(System.in);
 		
+		//푸드 배열 생성
 		Food[] highcalFoods = new Food[4];
 		Food[] midcalFoods = new Food[4];
 		Food[] lowcalFoods = new Food[4];
+		
+		//운동 객체 생성
+		Walking walking = new Walking(); 
+		Swimming swimming = new Swimming();
+		Running running = new Running();
 		
 		//날짜 
 		SimpleDateFormat format = new SimpleDateFormat ( "yyyy년 MM월 dd일");
@@ -354,7 +360,7 @@ public class TestMain {
 		
 	}
 
-	private void printExerciseList() throws IOException{
+	private void printExerciseList() throws IOException {
 		switch(exerciseChoice) {
 			case 0:
 			exerciseFinish(); 
@@ -369,6 +375,7 @@ public class TestMain {
 				running.print();
 				printExercise();
 					break;
+					
 				case 3:
 				swimming.Exercisecal();
 				swimming.print();
@@ -414,7 +421,7 @@ public class TestMain {
 	}
 
 	private void exerciseFinish() {
-		totalExercise = walking.getResult()+running.getResult()+swimming.getResult();
+		totalExercise = Walking.getResult()+Running.getResult()+Swimming.getResult();
 		System.out.println("☞ 오늘 총 운동 소모 칼로리는 "+totalExercise+"kcal입니다.");
 		System.out.printf("☞ 오늘 총 식사 칼로리는 %.2fkcal입니다.\n", totalFood);
 		System.out.printf("☞ 오늘 총 소모 칼로리는  %.2fkcal입니다.\n", totalFood-totalExercise);
